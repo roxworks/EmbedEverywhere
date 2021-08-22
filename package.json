@@ -1,0 +1,11 @@
+{
+  "name": "embeddable",
+  "version": "0.1.0",
+  "description": "Embed your twitch stream everywhere",
+  "main": "frontend/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nogweii; Roxkstar74",
+  "license": "UNLICENSED"
+}
