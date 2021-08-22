@@ -1,3 +1,1 @@
-/ http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 200!
-/* http://embedeverywhere.s3-website-us-west-1.amazonaws.com/:splat 200!
-/twitter.html http://embedeverywhere.s3-website-us-west-1.amazonaws.com/twitter.html 200!
+/* http://embedeverywhere.s3-website-us-west-1.amazonaws.com/* 200
