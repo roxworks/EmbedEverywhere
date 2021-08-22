@@ -1,1 +1,9 @@
 /test http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 200!
+/* http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 200!
+/ http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 200!
+/test http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 301!
+/* http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 301!
+/ http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 301!
+/test http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 302!
+/* http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 302!
+/ http://embedeverywhere.s3-website-us-west-1.amazonaws.com/index.html 302!
