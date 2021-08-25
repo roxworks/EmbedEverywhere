@@ -1,6 +1,6 @@
 import { Handler } from "@netlify/functions";
 import { parse, ParsedQs } from "qs";
-import { getTwitchProfileUrl } from './twitch/utils'
+import { twitchApiClient, getTwitchAccessTokenFromCookie } from './twitch/utils'
 
 // Copied this from https://gist.github.com/thetallweeks/7c452e211f286e77b6f2
 const entityMap = new Map<string, string>(Object.entries({
@@ -65,6 +65,18 @@ const handler: Handler = async (event, _context) => {
 		}
 	}
 
+	const cookieHeader = event.headers["cookie"];
+	if (cookieHeader) {
+		var accessToken = await getTwitchAccessTokenFromCookie(cookieHeader);
+	} else {
+		return {
+			statusCode: 400,
+			body: JSON.stringify({
+				message: "missing your cookie",
+			})
+		};
+	}
+
 	const parsedBody: ParsedQs = parse(formData);
 	// TODO: raise when any of these are null.
 	const details: HtmlCardDetails = {
@@ -73,8 +85,10 @@ const handler: Handler = async (event, _context) => {
 		description: <string>parsedBody.description,
 		title: <string>parsedBody.title
 	}
-	// TODO: When does twitch ever not return a URL for og:image? If so, what do we do?
-	console.log(buildHTML(details, await getTwitchProfileUrl(details.twitch_username) || ""));
+
+	const client = await twitchApiClient(accessToken);
+	var profile = await client.helix.users.getMe(true)
+	console.log(buildHTML(details, profile.profilePictureUrl));
 
 	return {
 		statusCode: 200,

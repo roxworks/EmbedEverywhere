@@ -14,13 +14,16 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.3.3",
     "cheerio": "^1.0.0-rc.10",
+    "cookie": "^0.4.1",
     "html-escape": "^2.0.0",
     "node-fetch": "^2.6.1",
     "qs": "^6.10.1",
-    "simple-oauth2": "^4.2.0"
+    "simple-oauth2": "^4.2.0",
+    "twitch": "^4.6.5"
   },
   "devDependencies": {
     "@netlify/functions": "^0.7.2",
+    "@types/cookie": "^0.4.1",
     "@types/node": "^16.7.1",
     "@types/node-fetch": "^2.5.12",
     "@types/qs": "^6.9.7",

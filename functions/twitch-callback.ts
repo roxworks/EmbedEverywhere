@@ -1,11 +1,11 @@
 import { Handler } from "@netlify/functions";
-import { getTwitchAccessToken } from './twitch/utils'
-import { AccessToken } from 'simple-oauth2'
+import { getTwitchAccessToken } from './twitch/utils';
+import { AccessToken } from 'simple-oauth2';
+import * as cookie from 'cookie';
 
 const handler: Handler = async (event, _context) => {
   var oauth2Code: string;
   var accessToken: AccessToken;
-  var rawToken: string;
 
   if (event?.queryStringParameters?.code == null) {
     return {
@@ -20,15 +20,20 @@ const handler: Handler = async (event, _context) => {
 
   try {
     var accessToken: AccessToken = await getTwitchAccessToken(oauth2Code);
-    console.log(accessToken);
-    rawToken = accessToken.token.access_token;
-    console.log(rawToken);
+
+    const cookieHeader = cookie.serialize('twitch_session', JSON.stringify(accessToken.token), {
+      httpOnly: false,
+      sameSite: "strict",
+      secure: true
+    });
+
     return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "yup, it worked. i think?",
-        token: rawToken,
-      })
+      statusCode: 303,
+      body: "",
+      headers: {
+        'Set-Cookie': cookieHeader,
+        'Location': "/form.html"
+      }
     };
   } catch (error) {
     console.log('Access Token Error', error.message);
