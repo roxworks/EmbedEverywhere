@@ -2,3 +2,5 @@ node_modules/
 build/
 .netlify/
 functions/*.zip
+.env
+.env.*

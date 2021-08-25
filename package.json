@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && netlify functions:build --src functions",
+    "build:functions": "tsc && netlify functions:build --src functions",
     "serve": "vite preview"
   },
   "author": "Nogweii; Roxkstar74",
@@ -17,6 +18,9 @@
   },
   "devDependencies": {
     "@netlify/functions": "^0.7.2",
+    "@types/node": "^16.7.1",
+    "@types/node-fetch": "^2.5.12",
+    "@types/simple-oauth2": "^4.1.1",
     "autoprefixer": "^10.3.2",
     "netlify-cli": "^6.7",
     "postcss": "^8.3.6",
