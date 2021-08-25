@@ -1,0 +1,16 @@
+[build]
+  # This will be run the site build
+  command = "npm run build"
+  # This is the directory is publishing to netlify's CDN
+  publish = "build"
+  # Location of built function code
+  functions = "functions/"
+
+[build.environment]
+  NODE_VERSION = "14"
+  AWS_LAMBDA_JS_RUNTIME = "nodejs14.x"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
