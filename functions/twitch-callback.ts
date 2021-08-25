@@ -1,5 +1,5 @@
 import { Handler } from "@netlify/functions";
-import getTwithAccessToken from './twitch/getToken'
+import { getTwitchAccessToken } from './twitch/utils'
 import { AccessToken } from 'simple-oauth2'
 
 const handler: Handler = async (event, _context) => {
@@ -19,7 +19,7 @@ const handler: Handler = async (event, _context) => {
   }
 
   try {
-    var accessToken: AccessToken = await getTwithAccessToken(oauth2Code);
+    var accessToken: AccessToken = await getTwitchAccessToken(oauth2Code);
     console.log(accessToken);
     rawToken = accessToken.token.access_token;
     console.log(rawToken);

@@ -1,5 +1,6 @@
 import { Handler } from "@netlify/functions";
 import { parse, ParsedQs } from "qs";
+import { getTwitchProfileUrl } from './twitch/utils'
 
 // Copied this from https://gist.github.com/thetallweeks/7c452e211f286e77b6f2
 const entityMap = new Map<string, string>(Object.entries({
@@ -72,7 +73,8 @@ const handler: Handler = async (event, _context) => {
 		description: <string>parsedBody.description,
 		title: <string>parsedBody.title
 	}
-	console.log(buildHTML(details, "http://foo.invalid"));
+	// TODO: When does twitch ever not return a URL for og:image? If so, what do we do?
+	console.log(buildHTML(details, await getTwitchProfileUrl(details.twitch_username) || ""));
 
 	return {
 		statusCode: 200,
