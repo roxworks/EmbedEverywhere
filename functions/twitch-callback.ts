@@ -24,7 +24,8 @@ const handler: Handler = async (event, _context) => {
     const cookieHeader = cookie.serialize('twitch_session', JSON.stringify(accessToken.token), {
       httpOnly: false,
       sameSite: "strict",
-      secure: true
+      secure: true,
+      path: "/"
     });
 
     return {
