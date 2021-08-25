@@ -5,9 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Embed Everywhere - Update</title>
   </head>
-  <body>
-    <h1>Welcome</h1>
-    <div id="app"></div>
+  <body class="bg-gray-700 text-gray-100">
     <script type="module" src="/main.ts"></script>
+
+    <div class="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+      <form class="space-y-8 divide-y divide-gray-200" action="/api/update-html" method="POST">
+        <div class="space-y-8 divide-y divide-gray-200">
+          <div>
+            <div>
+              <h3 class="text-lg leading-6 font-medium">
+                Inline card details
+              </h3>
+              <p class="mt-1 text-sm">
+                This information will be displayed in the twitter embed.
+              </p>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+              <div class="sm:col-span-4">
+                <label for="twitch_username" class="block text-sm font-medium">
+                  Twitch Username
+                </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                  <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-800 text-gray-200 sm:text-sm">
+                    twitch.tv/
+                  </span>
+                  <input type="text" name="twitch_username" id="twitch_username" autocomplete="username" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300 text-black" />
+                </div>
+              </div>
+
+              <div class="sm:col-span-4">
+                <label for="twitter_username" class="block text-sm font-medium">
+                  Twitter Username
+                </label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                  <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-800 text-gray-200 sm:text-sm">
+                    twitter.com/
+                  </span>
+                  <input type="text" name="twitter_username" id="twitter_username" autocomplete="username" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300 text-black" />
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="title" class="block text-sm font-medium">
+                  Title
+                </label>
+                <div class="mt-1">
+                  <input type="text" name="title" id="title" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md text-black" />
+                </div>
+                <p class="mt-2 text-sm">Short description of your stream. Maximum of 70 characters.</p>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="description" class="block text-sm font-medium">
+                  Description
+                </label>
+                <div class="mt-1">
+                  <textarea id="description" name="description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md text-black"></textarea>
+                </div>
+                <p class="mt-2 text-sm">Longer description of your stream. Maximum of 200 characters.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-5">
+          <div class="flex justify-end">
+            <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Cancel
+            </button>
+            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </body>
 </html>

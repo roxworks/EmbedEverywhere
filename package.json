@@ -12,14 +12,18 @@
   "author": "Nogweii; Roxkstar74",
   "license": "UNLICENSED",
   "dependencies": {
+    "@tailwindcss/forms": "^0.3.3",
     "cheerio": "^1.0.0-rc.10",
+    "html-escape": "^2.0.0",
     "node-fetch": "^2.6.1",
+    "qs": "^6.10.1",
     "simple-oauth2": "^4.2.0"
   },
   "devDependencies": {
     "@netlify/functions": "^0.7.2",
     "@types/node": "^16.7.1",
     "@types/node-fetch": "^2.5.12",
+    "@types/qs": "^6.9.7",
     "@types/simple-oauth2": "^4.1.1",
     "autoprefixer": "^10.3.2",
     "netlify-cli": "^6.7",
