@@ -2,6 +2,7 @@ import { Handler } from "@netlify/functions";
 import { getTwitchAccessToken } from './twitch/utils';
 import { AccessToken } from 'simple-oauth2';
 import * as cookie from 'cookie';
+import { twitchApiClient } from './twitch/utils'
 
 const handler: Handler = async (event, _context) => {
   var oauth2Code: string;
@@ -21,7 +22,18 @@ const handler: Handler = async (event, _context) => {
   try {
     var accessToken: AccessToken = await getTwitchAccessToken(oauth2Code);
 
-    const cookieHeader = cookie.serialize('twitch_session', JSON.stringify(accessToken.token), {
+    const client = await twitchApiClient(accessToken);
+    var profile = await client.helix.users.getMe(true);
+    var broadcasterId: number = 32985385; // Roxkstar74 on twitch
+    var subbedToRox: boolean = await client.helix.users.userFollowsBroadcaster(profile.id, broadcasterId) !== null;
+    const cookieData = {
+      token: accessToken.token,
+      username: profile.name,
+      is_subbed: subbedToRox,
+      profile_picture: profile.profilePictureUrl
+    }
+
+    const cookieHeader = cookie.serialize('twitch_session', JSON.stringify(cookieData), {
       httpOnly: false,
       sameSite: "strict",
       secure: true,
