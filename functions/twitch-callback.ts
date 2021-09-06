@@ -3,6 +3,7 @@ import { CookieData, getTwitchAccessToken } from './twitch/utils';
 import { AccessToken } from 'simple-oauth2';
 import * as cookie from 'cookie';
 import { twitchApiClient } from './twitch/utils'
+import { config } from "./twitch/config";
 
 const handler: Handler = async (event, _context) => {
   var oauth2Code: string;
@@ -33,7 +34,7 @@ const handler: Handler = async (event, _context) => {
       profile_picture: profile.profilePictureUrl
     }
 
-    const cookieHeader = cookie.serialize('twitch_session', JSON.stringify(cookieData), {
+    const cookieHeader = cookie.serialize(config.cookieName, JSON.stringify(cookieData), {
       httpOnly: false,
       sameSite: "strict",
       secure: true,

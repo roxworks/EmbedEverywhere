@@ -3,6 +3,7 @@ import { parse, ParsedQs } from "qs";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import * as cookie from 'cookie';
 import { CookieData } from "./twitch/utils";
+import { config } from "./twitch/config";
 
 async function uploadFile(cookieData: CookieData, contents: string): Promise<boolean>  {
   const s3Client = new S3Client({ region: "us-west-1" });
@@ -91,7 +92,7 @@ const handler: Handler = async (event, _context) => {
 	var cookieData: CookieData;
 	if (cookieHeader) {
 		const parsedCookie = cookie.parse(cookieHeader);
-		cookieData = JSON.parse(parsedCookie.twitch_session);
+		cookieData = JSON.parse(parsedCookie[config.cookieName]);
 	} else {
 		return {
 			statusCode: 400,

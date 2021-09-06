@@ -8,6 +8,8 @@ export const config = {
   redirect_uri: `${siteUrl}/api/twitch-callback`,
   scope: 'user:read:email user:read:subscriptions',
 
+  cookieName: 'twitch_session',
+
   oauth: {
     client: {
       id: process.env.TWITCH_CLIENT_ID || "",

@@ -26,7 +26,7 @@ async function twitchApiClient(oauthToken: AccessToken) {
 
 async function getTwitchAccessTokenFromCookie(cookieHeader: string): Promise<AccessToken> {
 	const parsedCookie = cookie.parse(cookieHeader);
-	const cookieData = JSON.parse(parsedCookie.twitch_session);
+	const cookieData = JSON.parse(parsedCookie[config.cookieName]);
 	return oauth2.createToken(cookieData.token);
 }
 
@@ -41,5 +41,5 @@ export {
 	getTwitchAccessToken,
 	getTwitchAccessTokenFromCookie,
 	twitchApiClient,
-	CookieData
 }
+export type { CookieData };
