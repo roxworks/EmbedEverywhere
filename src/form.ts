@@ -5,7 +5,7 @@ import { enter, leave } from 'el-transition';
 guardLoggedIn();
 updateNavBar();
 
-export function alertFadeToggle(alertContainer: HTMLElement) {
+function alertFadeToggle(alertContainer: HTMLElement) {
   console.log("Fading alert", alertContainer)
   if(alertContainer.classList.contains('hidden')) {
     enter(alertContainer)
