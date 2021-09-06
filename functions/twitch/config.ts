@@ -12,8 +12,8 @@ export const config = {
 
   oauth: {
     client: {
-      id: process.env.TWITCH_CLIENT_ID || "",
-      secret: process.env.TWITCH_CLIENT_SECRET || ""
+      id: process.env.EE_TWITCH_CLIENT_ID || "",
+      secret: process.env.EE_TWITCH_CLIENT_SECRET || ""
     },
     auth: {
       tokenHost: 'https://id.twitch.tv',

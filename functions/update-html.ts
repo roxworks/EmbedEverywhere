@@ -6,7 +6,10 @@ import { CookieData } from "./twitch/utils";
 import { config } from "./twitch/config";
 
 async function uploadFile(cookieData: CookieData, contents: string): Promise<boolean>  {
-  const s3Client = new S3Client({ region: "us-west-1" });
+  const s3Client = new S3Client({ region: "us-west-1", credentials: {
+    accessKeyId: process.env.EE_AWS_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ""
+  } });
 
   const params = {
     Bucket: "embedeverywhere",
