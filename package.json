@@ -16,6 +16,7 @@
     "@tailwindcss/forms": "^0.3.3",
     "cheerio": "^1.0.0-rc.10",
     "cookie": "^0.4.1",
+    "el-transition": "^0.0.7",
     "html-escape": "^2.0.0",
     "node-fetch": "^2.6.1",
     "qs": "^6.10.1",

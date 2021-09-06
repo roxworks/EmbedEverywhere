@@ -114,12 +114,28 @@ const handler: Handler = async (event, _context) => {
 	const htmlContents: string = buildHTML(details, cookieData);
 	const success: boolean = await uploadFile(cookieData, htmlContents);
 
+	var alertType: string;
+	if (success) {
+		alertType = "save"
+	} else {
+		alertType = "saveError"
+	}
+
+	const alertCookieHeader = cookie.serialize('alerts', alertType, {
+		httpOnly: false,
+		sameSite: "strict",
+		secure: true,
+		path: "/",
+		expires: new Date()
+	});
+
 	return {
-		statusCode: 200,
-		body: JSON.stringify({
-			message: "going to submit your changes",
-			success: success
-		})
+		statusCode: 303,
+		body: "",
+		headers: {
+			'Set-Cookie': alertCookieHeader,
+			'Location': "/form.html"
+		}
 	};
 }
 
