@@ -2,27 +2,22 @@ import { Handler } from "@netlify/functions";
 import { parse, ParsedQs } from "qs";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import * as cookie from 'cookie';
+import { CookieData } from "./twitch/utils";
 
-async function uploadFile(filename: string, contents: string): Promise<boolean>  {
+async function uploadFile(cookieData: CookieData, contents: string): Promise<boolean>  {
   const s3Client = new S3Client({ region: "us-west-1" });
 
   const params = {
-    Bucket: "embedeverywhere", // The name of the bucket. For example, 'sample_bucket_101'.
-    Key: "u/" + filename, // The name of the object. For example, 'sample_upload.txt'.
-    Body: contents, // The content of the object. For example, 'Hello world!".
+    Bucket: "embedeverywhere",
+    Key: `u/${cookieData.username}.html`,
+    Body: contents,
+	ACL: "public-read"
   };
 
   // Create an object and upload it to the Amazon S3 bucket.
   try {
     await s3Client.send(new PutObjectCommand(params));
-    console.log(
-      "Successfully created " +
-        params.Key +
-        " and uploaded it to " +
-        params.Bucket +
-        "/" +
-        params.Key
-    );
+    console.log(`Successfully uploaded s3://${params.Bucket}/${params.Key}`);
     return true;
   } catch (err) {
     console.log("Error", err);
@@ -49,7 +44,7 @@ interface HtmlCardDetails {
   title: string;
 }
 
-function buildHTML(formData: HtmlCardDetails, cookieData: any): string {
+function buildHTML(formData: HtmlCardDetails, cookieData: CookieData): string {
 	return `<!DOCTYPE html>
     <html>
     <head>
@@ -63,7 +58,7 @@ function buildHTML(formData: HtmlCardDetails, cookieData: any): string {
         <meta name='twitter:description' content="${escapeHtml(formData.description)}">
         <meta name='twitter:image' content='${cookieData.profile_picture}'>
         <meta name='twitter:title' content='${escapeHtml(formData.title)}'>
-        <meta http-equiv="Refresh" content="0; url='https://twitch.tv/${escapeHtml(formData.twitch_username)}'" />
+        <meta http-equiv="Refresh" content="0; url='https://twitch.tv/${escapeHtml(cookieData.username)}'" />
     </head>
     </html>`;
 }
@@ -93,7 +88,7 @@ const handler: Handler = async (event, _context) => {
 	}
 
 	const cookieHeader = event.headers["cookie"];
-	var cookieData;
+	var cookieData: CookieData;
 	if (cookieHeader) {
 		const parsedCookie = cookie.parse(cookieHeader);
 		cookieData = JSON.parse(parsedCookie.twitch_session);
@@ -114,8 +109,9 @@ const handler: Handler = async (event, _context) => {
 		title: <string>parsedBody.title
 	}
 
+	console.log(`Building Twitch stream card HTML for ${cookieData.username}`)
 	const htmlContents: string = buildHTML(details, cookieData);
-	const success: boolean = await uploadFile(cookieData.username + ".html", htmlContents);
+	const success: boolean = await uploadFile(cookieData, htmlContents);
 
 	return {
 		statusCode: 200,

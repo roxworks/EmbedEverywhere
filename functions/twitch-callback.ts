@@ -1,5 +1,5 @@
 import { Handler } from "@netlify/functions";
-import { getTwitchAccessToken } from './twitch/utils';
+import { CookieData, getTwitchAccessToken } from './twitch/utils';
 import { AccessToken } from 'simple-oauth2';
 import * as cookie from 'cookie';
 import { twitchApiClient } from './twitch/utils'
@@ -26,7 +26,7 @@ const handler: Handler = async (event, _context) => {
     var profile = await client.helix.users.getMe(true);
     var broadcasterId: number = 32985385; // Roxkstar74 on twitch
     var subbedToRox: boolean = await client.helix.users.userFollowsBroadcaster(profile.id, broadcasterId) !== null;
-    const cookieData = {
+    const cookieData: CookieData = {
       token: accessToken.token,
       username: profile.name,
       is_subbed: subbedToRox,
@@ -40,6 +40,7 @@ const handler: Handler = async (event, _context) => {
       path: "/"
     });
 
+    console.log(`Twitch user ${cookieData.username} has logged in. (Subbed? ${cookieData.is_subbed})`)
     return {
       statusCode: 303,
       body: "",

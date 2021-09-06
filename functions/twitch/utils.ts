@@ -30,8 +30,16 @@ async function getTwitchAccessTokenFromCookie(cookieHeader: string): Promise<Acc
 	return oauth2.createToken(cookieData.token);
 }
 
+interface CookieData {
+    token: Object,
+    username: string,
+    is_subbed: boolean,
+    profile_picture: string
+}
+
 export {
 	getTwitchAccessToken,
 	getTwitchAccessTokenFromCookie,
-	twitchApiClient
+	twitchApiClient,
+	CookieData
 }
