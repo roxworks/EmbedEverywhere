@@ -7,6 +7,19 @@ module.exports = {
       colors: {
         'twitch-purple': '#9146ff',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: 'rgb(243, 244, 246)',
+            a: {
+              color: '#9146ff',
+            },
+            h2: {
+              color: 'rgb(243, 244, 246)',
+            }
+          },
+        },
+      },
     },
   },
   variants: {
@@ -14,5 +27,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
   ],
 }

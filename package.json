@@ -14,6 +14,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.27.0",
     "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/typography": "^0.4.1",
     "cheerio": "^1.0.0-rc.10",
     "cookie": "^0.4.1",
     "el-transition": "^0.0.7",
