@@ -1,4 +1,4 @@
-import { updateNavBar, guardLoggedIn } from './common';
+import { updateNavBar, guardLoggedIn, getCookieData } from './common';
 import './style.css'
 import { enter, leave } from 'el-transition'; 
 
@@ -40,4 +40,9 @@ window.addEventListener('load', () => {
       leave(alertParent);
     })
   });
+
+  const linkLike = <HTMLSpanElement>document.getElementById("cardLinkLike");
+  const url = new URL(window.location.href);
+  url.pathname = "/u/" + getCookieData().username + ".html"
+  linkLike.innerText = url.toString();
 })
