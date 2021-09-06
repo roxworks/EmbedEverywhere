@@ -45,7 +45,6 @@ export function escapeHtml(source: string) {
 
 interface HtmlCardDetails {
   twitter_username: string;
-  twitch_username: string;
   description: string;
   title: string;
 }
@@ -110,14 +109,13 @@ const handler: Handler = async (event, _context) => {
 	const parsedBody: ParsedQs = parse(formData);
 	// TODO: raise when any of these are null.
 	const details: HtmlCardDetails = {
-		twitch_username: <string>parsedBody.twitch_username,
 		twitter_username: <string>parsedBody.twitter_username,
 		description: <string>parsedBody.description,
 		title: <string>parsedBody.title
 	}
 
 	const htmlContents: string = buildHTML(details, cookieData);
-	const success: boolean = await uploadFile(details.twitch_username + ".html", htmlContents);
+	const success: boolean = await uploadFile(cookieData.username + ".html", htmlContents);
 
 	return {
 		statusCode: 200,
