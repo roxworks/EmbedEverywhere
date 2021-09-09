@@ -43,6 +43,9 @@ window.addEventListener('load', () => {
 
   const linkLike = <HTMLSpanElement>document.getElementById("cardLinkLike");
   const url = new URL(window.location.href);
-  url.pathname = "/u/" + getCookieData().username + ".html"
+  url.pathname = "/u/" + getCookieData().username + ".html";
+  url.search = ""; // Remove any query parameters (?foo=bar)
+  url.hash = ""; // and remove any fragment identifiers (#foo)
   linkLike.innerText = url.toString();
+  console.log("Setting link to", url);
 })
