@@ -1,6 +1,6 @@
 import { Handler } from "@netlify/functions";
 import { parse, ParsedQs } from "qs";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, PutObjectCommandInput } from "@aws-sdk/client-s3";
 import * as cookie from 'cookie';
 import { CookieData } from "./twitch/utils";
 import { config } from "./twitch/config";
@@ -11,11 +11,13 @@ async function uploadFile(cookieData: CookieData, contents: string): Promise<boo
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ""
   } });
 
-  const params = {
+  const params: PutObjectCommandInput = {
     Bucket: "embedeverywhere",
     Key: `u/${cookieData.username}.html`,
     Body: contents,
-	ACL: "public-read"
+	ACL: "public-read",
+	ContentType: "text/html; charset=UTF-8",
+
   };
 
   // Create an object and upload it to the Amazon S3 bucket.
