@@ -16,7 +16,7 @@ async function uploadFile(cookieData: CookieData, contents: string): Promise<boo
     Key: `u/${cookieData.username}.html`,
     Body: contents,
 	ACL: "public-read",
-	ContentType: "text/html; charset=UTF-8",
+	ContentType: "text/html",
 
   };
 
