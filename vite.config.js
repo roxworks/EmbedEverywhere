@@ -10,6 +10,7 @@ module.exports = defineConfig({
       input: {
         index: resolve(__dirname, 'src/index.html'),
         form: resolve(__dirname, 'src/form.html'),
+        about: resolve(__dirname, 'src/about.html'),
       }
     }
   }
